@@ -377,6 +377,69 @@
             color: #fff;
         }
 
+        /* -- Export Section -- */
+        .export-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .export-screenshot-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: linear-gradient(135deg, #38bec9, #f0d343);
+        }
+
+        .export-screenshot-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(56, 190, 201, 0.4);
+        }
+
+        .export-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            color: #d0d0e0;
+        }
+
+        .export-toggle:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .export-check {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .export-toggle.active .export-check {
+            background: #38bec9;
+            border-color: #38bec9;
+        }
+
+        .export-toggle.active .export-check::after {
+            content: '\2713';
+            color: #fff;
+            font-size: 9px;
+        }
+
         /* POI */
         .poi-list {
             display: flex;
@@ -946,8 +1009,20 @@
                 <button class="adv-apply" id="advApply">&#x1F3DC;&#xFE0F; Apply Filter</button>
                 <div class="adv-hint" id="advHint">Choose a metric, operator, and threshold</div>
             </div>
-            <button class="export-btn" id="exportBtn">&#x1F4E5; Export Filtered Tracts (CSV)</button>
             <button class="zoom-btn" id="zoomOutBtn">&#x1F50D; Zoom Out to Maryland</button>
+        </div>
+
+        <div class="section">
+            <div class="section-title">&#x1F4F8; Export</div>
+            <div class="export-section">
+                <div class="export-toggle active" id="poiTableToggle">
+                    <div class="export-check"></div>
+                    <span>Include POI stats table</span>
+                </div>
+                <button class="export-screenshot-btn" id="exportScreenshotBtn">&#x1F4F7; Export Infographic
+                    (PNG)</button>
+                <button class="export-btn" id="exportBtn">&#x1F4E5; Export Data (CSV)</button>
+            </div>
         </div>
 
         <div class="section">
@@ -1169,8 +1244,14 @@
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v11',
             center: [-76.6, 39.0],
-            zoom: 7.5
+            zoom: 7.5,
+            preserveDrawingBuffer: true
         });
+
+        // Preload watermark logo
+        var watermarkImg = new Image();
+        watermarkImg.crossOrigin = 'anonymous';
+        watermarkImg.src = 'logo.png';
 
         var geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
@@ -1599,7 +1680,154 @@
             }
         });
 
-        /* -- Export -- */
+        /* -- POI Table Toggle -- */
+        var includePOITable = true;
+        document.getElementById('poiTableToggle').addEventListener('click', function () {
+            this.classList.toggle('active');
+            includePOITable = this.classList.contains('active');
+        });
+
+        /* -- Infographic Screenshot Export -- */
+        function countPOIsInView() {
+            var bounds = map.getBounds();
+            var counts = {};
+            var poiNames = { hospitals: '🏥 Hospitals', schools: '🏫 Schools', parks: '🌳 Parks', libraries: '📚 Libraries', stores: '🛒 Stores' };
+            Object.keys(poiConfigs).forEach(function (layerId) {
+                counts[layerId] = { label: poiNames[layerId] || layerId, count: 0 };
+                var src = map.getSource(layerId);
+                if (!src || !src._data || !src._data.features) return;
+                src._data.features.forEach(function (f) {
+                    var coords;
+                    if (f.geometry.type === 'Point') coords = f.geometry.coordinates;
+                    else if (f.geometry.type === 'Polygon') coords = f.geometry.coordinates[0][0];
+                    else if (f.geometry.type === 'MultiPolygon') coords = f.geometry.coordinates[0][0][0];
+                    if (!coords) return;
+                    var lng = Array.isArray(coords[0]) ? coords[0] : coords[0];
+                    var lat = Array.isArray(coords[1]) ? coords[1] : coords[1];
+                    if (currentCounty && f.properties.county_name && f.properties.county_name !== currentCounty) return;
+                    if (bounds.contains([lng, lat])) counts[layerId].count++;
+                });
+            });
+            return counts;
+        }
+
+        document.getElementById('exportScreenshotBtn').addEventListener('click', function () {
+            showToast('Generating infographic...');
+            setTimeout(function () {
+                var mapCanvas = map.getCanvas();
+                var w = mapCanvas.width;
+                var h = mapCanvas.height;
+                var c = document.createElement('canvas');
+                c.width = w;
+                c.height = h;
+                var ctx = c.getContext('2d');
+
+                // Draw map
+                ctx.drawImage(mapCanvas, 0, 0);
+
+                // -- Title bar at top --
+                var titleH = 60;
+                ctx.fillStyle = 'rgba(15, 15, 26, 0.85)';
+                ctx.fillRect(0, 0, w, titleH);
+                ctx.fillStyle = '#38bec9';
+                ctx.font = 'bold 22px Segoe UI, system-ui, sans-serif';
+                ctx.textBaseline = 'middle';
+                var titleText = '✨ Spark Map — ' + (currentCounty ? currentCounty.replace(', Maryland', '') : 'All Maryland');
+                ctx.fillText(titleText, 20, titleH / 2);
+
+                // Filter info on right of title bar
+                if (advFilterActive) {
+                    var metricLabel = document.getElementById('advMetric').selectedOptions[0].text;
+                    var opSymbol = advOp === 'lte' ? '≤' : '≥';
+                    var filterText = 'Filter: ' + metricLabel + ' ' + opSymbol + ' ' + document.getElementById('advThreshold').value;
+                    ctx.fillStyle = '#f97316';
+                    ctx.font = '600 16px Segoe UI, system-ui, sans-serif';
+                    var ftW = ctx.measureText(filterText).width;
+                    ctx.fillText(filterText, w - ftW - 20, titleH / 2);
+                }
+
+                // Active lens info
+                var lensInfo = lensLabels[currentLens];
+                ctx.fillStyle = '#8a8a9a';
+                ctx.font = '14px Segoe UI, system-ui, sans-serif';
+                var lensText = 'Data Lens: ' + lensInfo.icon + ' ' + lensInfo.name;
+                var ltW = ctx.measureText(lensText).width;
+                ctx.fillText(lensText, w - ltW - 20, titleH / 2 + (advFilterActive ? -12 : 0));
+                if (advFilterActive) {
+                    ctx.fillStyle = '#f97316';
+                    ctx.font = '600 14px Segoe UI, system-ui, sans-serif';
+                    var filterText2 = 'Filter: ' + document.getElementById('advMetric').selectedOptions[0].text + ' ' + (advOp === 'lte' ? '≤' : '≥') + ' ' + document.getElementById('advThreshold').value;
+                    var ft2W = ctx.measureText(filterText2).width;
+                    ctx.fillText(filterText2, w - ft2W - 20, titleH / 2 + 12);
+                }
+
+                // -- Optional POI stats table (bottom-left) --
+                if (includePOITable) {
+                    var poiCounts = countPOIsInView();
+                    var poiKeys = Object.keys(poiCounts);
+                    var rowH = 26;
+                    var tableW = 200;
+                    var headerH = 30;
+                    var tableH = headerH + poiKeys.length * rowH + 10;
+                    var tableX = 16;
+                    var tableY = h - tableH - 16;
+
+                    // Table background
+                    ctx.fillStyle = 'rgba(15, 15, 26, 0.88)';
+                    ctx.beginPath();
+                    ctx.roundRect(tableX, tableY, tableW, tableH, 10);
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.roundRect(tableX, tableY, tableW, tableH, 10);
+                    ctx.stroke();
+
+                    // Table header
+                    ctx.fillStyle = '#38bec9';
+                    ctx.font = 'bold 12px Segoe UI, system-ui, sans-serif';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('📍 Points of Interest', tableX + 12, tableY + headerH / 2);
+
+                    // Table rows
+                    poiKeys.forEach(function (key, i) {
+                        var rowY = tableY + headerH + i * rowH;
+                        ctx.fillStyle = '#d0d0e0';
+                        ctx.font = '12px Segoe UI, system-ui, sans-serif';
+                        ctx.fillText(poiCounts[key].label, tableX + 12, rowY + rowH / 2);
+                        ctx.fillStyle = '#fff';
+                        ctx.font = 'bold 13px Segoe UI, system-ui, sans-serif';
+                        ctx.textAlign = 'right';
+                        ctx.fillText(poiCounts[key].count.toLocaleString(), tableX + tableW - 14, rowY + rowH / 2);
+                        ctx.textAlign = 'left';
+                    });
+                }
+
+                // -- Watermark logo (bottom-right) --
+                if (watermarkImg.complete && watermarkImg.naturalWidth > 0) {
+                    var logoSize = 100;
+                    var logoX = w - logoSize - 16;
+                    var logoY = h - logoSize - 16;
+                    ctx.globalAlpha = 0.7;
+                    ctx.drawImage(watermarkImg, logoX, logoY, logoSize, logoSize);
+                    ctx.globalAlpha = 1.0;
+                }
+
+                // Download
+                c.toBlob(function (blob) {
+                    var url = URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    var area = currentCounty ? currentCounty.replace(', Maryland', '').replace(/\s/g, '_') : 'Maryland';
+                    a.download = 'SparkMap_' + area + '_infographic.png';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    showToast('Infographic exported!');
+                }, 'image/png');
+            }, 200);
+        });
+
+        /* -- CSV Export -- */
         document.getElementById('exportBtn').addEventListener('click', function () {
             if (!tractData) return;
             var features = tractData.features;
@@ -1629,7 +1857,7 @@
                 : 'maryland') + '_' + metricShort + '_filtered.csv';
             a.click();
             URL.revokeObjectURL(url);
-            showToast('Exported ' + deserts.length + ' mobility desert tracts');
+            showToast('Exported ' + deserts.length + ' filtered tracts');
         });
 
         /* -- Zoom Out -- */
