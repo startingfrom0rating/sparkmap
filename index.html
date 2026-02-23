@@ -213,66 +213,115 @@
             box-shadow: 0 4px 15px rgba(56, 190, 201, 0.4);
         }
 
-        .desert-toggle {
+        /* -- Advocacy Filter -- */
+        .adv-filter {
             display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(249, 115, 22, 0.1));
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 8px;
-            cursor: pointer;
+            flex-direction: column;
+            gap: 8px;
             margin-bottom: 10px;
         }
 
-        .desert-toggle:hover {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(249, 115, 22, 0.2));
-        }
-
-        .desert-toggle.active {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(249, 115, 22, 0.3));
-            border-color: #ef4444;
-        }
-
-        .desert-toggle .icon {
-            font-size: 18px;
-        }
-
-        .desert-toggle .text {
-            flex: 1;
-        }
-
-        .desert-toggle .text .title {
-            font-size: 12px;
-            font-weight: 600;
-            color: #fff;
-        }
-
-        .desert-toggle .text .desc {
-            font-size: 9px;
-            color: #f97316;
-            margin-top: 1px;
-        }
-
-        .desert-toggle .checkbox {
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
-            border: 2px solid rgba(239, 68, 68, 0.5);
+        .adv-row {
             display: flex;
+            gap: 6px;
             align-items: center;
-            justify-content: center;
         }
 
-        .desert-toggle.active .checkbox {
-            background: #ef4444;
-            border-color: #ef4444;
-        }
-
-        .desert-toggle.active .checkbox::after {
-            content: '\2713';
+        .adv-select,
+        .adv-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
             color: #fff;
             font-size: 11px;
+            padding: 7px 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .adv-select:focus,
+        .adv-input:focus {
+            border-color: #38bec9;
+        }
+
+        .adv-select {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .adv-select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .adv-op {
+            display: flex;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .adv-op button {
+            background: rgba(255, 255, 255, 0.04);
+            border: none;
+            color: #8a8a9a;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .adv-op button.active {
+            background: #38bec9;
+            color: #fff;
+        }
+
+        .adv-input {
+            width: 70px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .adv-apply {
+            width: 100%;
+            padding: 9px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(249, 115, 22, 0.15));
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f97316;
+        }
+
+        .adv-apply:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(249, 115, 22, 0.25));
+        }
+
+        .adv-apply.active {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
+        }
+
+        .adv-apply.active:hover {
+            opacity: 0.9;
+        }
+
+        .adv-hint {
+            font-size: 9px;
+            color: #6a6a7a;
+            text-align: center;
+            margin-top: -2px;
+        }
+
+        .adv-hint.active-hint {
+            color: #f97316;
         }
 
         .export-btn,
@@ -877,17 +926,28 @@
         <div class="search-container" id="geocoder"></div>
 
         <div class="section">
-            <div class="section-title">Advocacy Focus</div>
-            <div class="desert-toggle" id="desertToggle">
-                <div class="icon">&#x1F3DC;&#xFE0F;</div>
-                <div class="text">
-                    <div class="title">Mobility Deserts</div>
-                    <div class="desc">Income mobility &lt; 40%</div>
+            <div class="section-title">&#x1F6A8; Advocacy Focus</div>
+            <div class="adv-filter">
+                <select class="adv-select" id="advMetric">
+                    <option value="kfr_pooled_pooled_mean">&#x1F4B0; Income Mobility</option>
+                    <option value="z_COI_nat">&#x1F3AF; Opportunity Index</option>
+                    <option value="z_ED_nat">&#x1F4DA; Education</option>
+                    <option value="z_HE_nat">&#x1F3E5; Health / Environment</option>
+                    <option value="z_SE_nat">&#x1F465; Social / Economic</option>
+                    <option value="jail_pooled_pooled_mean">&#x2696;&#xFE0F; Incarceration Rate</option>
+                </select>
+                <div class="adv-row">
+                    <div class="adv-op" id="advOp">
+                        <button class="active" data-op="lte">&le;</button>
+                        <button data-op="gte">&ge;</button>
+                    </div>
+                    <input class="adv-input" id="advThreshold" type="text" value="40%" placeholder="threshold">
                 </div>
-                <div class="checkbox"></div>
+                <button class="adv-apply" id="advApply">&#x1F3DC;&#xFE0F; Apply Filter</button>
+                <div class="adv-hint" id="advHint">Choose a metric, operator, and threshold</div>
             </div>
-            <button class="export-btn" id="exportBtn">Export Desert Tracts (CSV)</button>
-            <button class="zoom-btn" id="zoomOutBtn">Zoom Out to Maryland</button>
+            <button class="export-btn" id="exportBtn">&#x1F4E5; Export Filtered Tracts (CSV)</button>
+            <button class="zoom-btn" id="zoomOutBtn">&#x1F50D; Zoom Out to Maryland</button>
         </div>
 
         <div class="section">
@@ -1074,7 +1134,7 @@
                     <strong>1.</strong> Use the <strong>Mobility Desert</strong> toggle to identify the most
                     under-resourced tracts in your county.<br>
                     <strong>2.</strong> Export the desert tracts as CSV for grant applications and policy briefs.<br>
-                    <strong>3.</strong> Switch between lenses to understand <em>why</em> a tract is struggling, 
+                    <strong>3.</strong> Switch between lenses to understand <em>why</em> a tract is struggling,
                     is it education, health, or social/economic disadvantage?<br>
                     <strong>4.</strong> Toggle POIs to see if the area lacks schools, libraries, or healthcare
                     access.<br>
@@ -1087,7 +1147,10 @@
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiYmVja2diIiwiYSI6ImNtazF5bWh0aTBhemozZm15eWtvd3B2cGYifQ.IQDpONfnqF-70DP6QKMd2A';
-        var DESERT_THRESHOLD = 0.40;
+        var advFilterActive = false;
+        var advMetric = 'kfr_pooled_pooled_mean';
+        var advOp = 'lte'; // 'lte' or 'gte'
+        var advThreshold = 0.40;
 
         // Special tracts: non-residential areas without meaningful census data
         var SPECIAL_COLOR = '#7c3aed';
@@ -1119,7 +1182,7 @@
         document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
         var currentLens = 'kfr_pooled_pooled_mean';
-        var showDeserts = false;
+        // showDeserts replaced by advFilterActive
         var tractData = null;
         var currentCounty = '';
 
@@ -1236,8 +1299,11 @@
                 : tractData.features;
             var desertCount = 0;
             features.forEach(function (f) {
-                var m = parseFloat(f.properties.kfr_pooled_pooled_mean);
-                if (!isNaN(m) && m < DESERT_THRESHOLD) desertCount++;
+                var m = parseFloat(f.properties[advMetric]);
+                if (!isNaN(m)) {
+                    if (advOp === 'lte' && m <= advThreshold) desertCount++;
+                    else if (advOp === 'gte' && m >= advThreshold) desertCount++;
+                }
             });
             var tractEl = document.getElementById('tractCount');
             var desertEl = document.getElementById('desertCount');
@@ -1322,7 +1388,7 @@
                     type: 'line',
                     source: 'tracts',
                     paint: { 'line-color': '#ef4444', 'line-width': 3, 'line-opacity': 0 },
-                    filter: ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD]
+                    filter: ['<=', ['to-number', ['get', advMetric], 999], advThreshold]
                 });
 
                 map.addLayer({
@@ -1346,7 +1412,8 @@
                     var lensInfo = lensLabels[currentLens];
                     var value = parseFloat(props[currentLens]);
                     var mobility = parseFloat(props.kfr_pooled_pooled_mean);
-                    var isDesert = !isNaN(mobility) && mobility < DESERT_THRESHOLD;
+                    var advVal = parseFloat(props[advMetric]);
+                    var isDesert = !isNaN(advVal) && (advOp === 'lte' ? advVal <= advThreshold : advVal >= advThreshold);
 
                     // Special tract popup
                     if (specialLabel) {
@@ -1437,17 +1504,98 @@
             });
         });
 
-        /* -- Desert Toggle -- */
-        document.getElementById('desertToggle').addEventListener('click', function () {
-            this.classList.toggle('active');
-            showDeserts = this.classList.contains('active');
-            if (map.getLayer('tracts-desert-highlight')) {
-                map.setPaintProperty('tracts-desert-highlight', 'line-opacity', showDeserts ? 1 : 0);
+        /* -- Advocacy Filter Logic -- */
+        function parseThresholdInput(raw) {
+            raw = raw.trim();
+            if (raw.endsWith('%')) return parseFloat(raw) / 100;
+            return parseFloat(raw);
+        }
+
+        function buildAdvFilter() {
+            var op = advOp === 'lte' ? '<=' : '>=';
+            return [op, ['to-number', ['get', advMetric], advOp === 'lte' ? 999 : -999], advThreshold];
+        }
+
+        function buildAdvFilterWithCounty() {
+            var base = buildAdvFilter();
+            if (currentCounty) {
+                return ['all', ['==', ['get', 'county_name'], currentCounty], base];
             }
-            if (map.getLayer('tracts-fill')) {
-                map.setPaintProperty('tracts-fill', 'fill-opacity', showDeserts
-                    ? ['case', ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD], 0.9, 0.3]
-                    : 0.75);
+            return base;
+        }
+
+        function applyAdvFilter() {
+            var btn = document.getElementById('advApply');
+            var hint = document.getElementById('advHint');
+            advFilterActive = !advFilterActive;
+
+            if (advFilterActive) {
+                // Read current values
+                advMetric = document.getElementById('advMetric').value;
+                var rawThreshold = document.getElementById('advThreshold').value;
+                advThreshold = parseThresholdInput(rawThreshold);
+                if (isNaN(advThreshold)) { advFilterActive = false; return; }
+
+                btn.classList.add('active');
+                btn.innerHTML = '&#x2705; Filter Active &mdash; Click to Clear';
+                var metricLabel = document.getElementById('advMetric').selectedOptions[0].text;
+                var opSymbol = advOp === 'lte' ? '≤' : '≥';
+                hint.textContent = metricLabel + ' ' + opSymbol + ' ' + rawThreshold;
+                hint.classList.add('active-hint');
+
+                // Update highlight layer
+                if (map.getLayer('tracts-desert-highlight')) {
+                    map.setFilter('tracts-desert-highlight', buildAdvFilterWithCounty());
+                    map.setPaintProperty('tracts-desert-highlight', 'line-opacity', 1);
+                }
+                // Dim non-matching tracts
+                if (map.getLayer('tracts-fill')) {
+                    var dimExpr = ['case', buildAdvFilter(), 0.9, 0.25];
+                    map.setPaintProperty('tracts-fill', 'fill-opacity', dimExpr);
+                }
+            } else {
+                btn.classList.remove('active');
+                btn.innerHTML = '&#x1F3DC;&#xFE0F; Apply Filter';
+                hint.textContent = 'Choose a metric, operator, and threshold';
+                hint.classList.remove('active-hint');
+
+                if (map.getLayer('tracts-desert-highlight')) {
+                    map.setPaintProperty('tracts-desert-highlight', 'line-opacity', 0);
+                }
+                if (map.getLayer('tracts-fill')) {
+                    map.setPaintProperty('tracts-fill', 'fill-opacity', 0.75);
+                }
+            }
+            updateStats(currentCounty);
+        }
+
+        document.getElementById('advApply').addEventListener('click', applyAdvFilter);
+
+        // Operator toggle
+        document.querySelectorAll('#advOp button').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('#advOp button').forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                advOp = btn.dataset.op;
+                // If filter is active, re‑apply with new operator
+                if (advFilterActive) {
+                    advFilterActive = false; // toggle off then on to re‑apply
+                    applyAdvFilter();
+                }
+            });
+        });
+
+        // Smart default threshold when metric changes
+        document.getElementById('advMetric').addEventListener('change', function () {
+            var v = this.value;
+            var thresholdInput = document.getElementById('advThreshold');
+            if (v === 'kfr_pooled_pooled_mean') thresholdInput.value = '40%';
+            else if (v === 'jail_pooled_pooled_mean') thresholdInput.value = '3%';
+            else thresholdInput.value = '0';
+            // If filter is active, re-apply
+            if (advFilterActive) {
+                advFilterActive = false;
+                applyAdvFilter();
             }
         });
 
@@ -1459,8 +1607,9 @@
                 features = features.filter(function (f) { return f.properties.county_name === currentCounty; });
             }
             var deserts = features.filter(function (f) {
-                var m = parseFloat(f.properties.kfr_pooled_pooled_mean);
-                return !isNaN(m) && m < DESERT_THRESHOLD;
+                var m = parseFloat(f.properties[advMetric]);
+                if (isNaN(m)) return false;
+                return advOp === 'lte' ? m <= advThreshold : m >= advThreshold;
             });
             var csv = [
                 ['GEOID', 'Tract Name', 'County', 'Income Mobility', 'Opportunity Index', 'Education', 'Health', 'Social'].join(',')
@@ -1474,9 +1623,10 @@
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
-            a.download = currentCounty
-                ? currentCounty.replace(', Maryland', '').replace(/\s/g, '_') + '_mobility_deserts.csv'
-                : 'maryland_mobility_deserts.csv';
+            var metricShort = advMetric.replace(/_/g, '-');
+            a.download = (currentCounty
+                ? currentCounty.replace(', Maryland', '').replace(/\s/g, '_')
+                : 'maryland') + '_' + metricShort + '_filtered.csv';
             a.click();
             URL.revokeObjectURL(url);
             showToast('Exported ' + deserts.length + ' mobility desert tracts');
@@ -1488,7 +1638,7 @@
             currentCounty = '';
             map.setFilter('tracts-fill', null);
             map.setFilter('tracts-outline', null);
-            map.setFilter('tracts-desert-highlight', ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD]);
+            if (advFilterActive) map.setFilter('tracts-desert-highlight', buildAdvFilter());
             filterPOIs('');
             map.flyTo({ center: [-76.6, 39.0], zoom: 7.5 });
             document.getElementById('zoomOutBtn').classList.remove('visible');
@@ -1503,10 +1653,9 @@
             if (currentCounty) {
                 map.setFilter('tracts-fill', ['==', ['get', 'county_name'], currentCounty]);
                 map.setFilter('tracts-outline', ['==', ['get', 'county_name'], currentCounty]);
-                map.setFilter('tracts-desert-highlight', ['all',
-                    ['==', ['get', 'county_name'], currentCounty],
-                    ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD]
-                ]);
+                if (advFilterActive) {
+                    map.setFilter('tracts-desert-highlight', buildAdvFilterWithCounty());
+                }
                 var countyFeatures = tractData.features.filter(function (f) { return f.properties.county_name === currentCounty; });
                 if (countyFeatures.length) {
                     var bounds = new mapboxgl.LngLatBounds();
@@ -1526,7 +1675,7 @@
             } else {
                 map.setFilter('tracts-fill', null);
                 map.setFilter('tracts-outline', null);
-                map.setFilter('tracts-desert-highlight', ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD]);
+                if (advFilterActive) map.setFilter('tracts-desert-highlight', buildAdvFilter());
                 map.flyTo({ center: [-76.6, 39.0], zoom: 7.5 });
                 document.getElementById('zoomOutBtn').classList.remove('visible');
                 filterPOIs('');
