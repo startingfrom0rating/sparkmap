@@ -984,7 +984,7 @@
 
     <!-- Control Panel -->
     <div class="control-panel">
-        <h1>&#x2728; Spark Map</h1>
+        <h1>🧩 Spark Map</h1>
         <p class="subtitle">Maryland Opportunity Intelligence</p>
         <div class="search-container" id="geocoder"></div>
 
@@ -1727,39 +1727,41 @@
 
                 // -- Title bar at top --
                 var titleH = 60;
-                ctx.fillStyle = 'rgba(15, 15, 26, 0.85)';
+                ctx.fillStyle = 'rgba(15, 15, 26, 0.9)';
                 ctx.fillRect(0, 0, w, titleH);
                 ctx.fillStyle = '#38bec9';
                 ctx.font = 'bold 22px Segoe UI, system-ui, sans-serif';
                 ctx.textBaseline = 'middle';
-                var titleText = '✨ Spark Map — ' + (currentCounty ? currentCounty.replace(', Maryland', '') : 'All Maryland');
+                ctx.textAlign = 'left';
+                var titleText = '🧩 Spark Map — ' + (currentCounty ? currentCounty.replace(', Maryland', '') : 'All Maryland');
                 ctx.fillText(titleText, 20, titleH / 2);
 
-                // Filter info on right of title bar
+                // Info on right of title bar
+                ctx.textAlign = 'right';
+                var lensInfo = lensLabels[currentLens];
+
                 if (advFilterActive) {
+                    // Lens info (top line)
+                    ctx.fillStyle = '#8a8a9a';
+                    ctx.font = '14px Segoe UI, system-ui, sans-serif';
+                    ctx.fillText('Data Lens: ' + lensInfo.icon + ' ' + lensInfo.name, w - 20, titleH / 2 - 12);
+
+                    // Filter info (bottom line)
                     var metricLabel = document.getElementById('advMetric').selectedOptions[0].text;
                     var opSymbol = advOp === 'lte' ? '≤' : '≥';
-                    var filterText = 'Filter: ' + metricLabel + ' ' + opSymbol + ' ' + document.getElementById('advThreshold').value;
-                    ctx.fillStyle = '#f97316';
-                    ctx.font = '600 16px Segoe UI, system-ui, sans-serif';
-                    var ftW = ctx.measureText(filterText).width;
-                    ctx.fillText(filterText, w - ftW - 20, titleH / 2);
-                }
-
-                // Active lens info
-                var lensInfo = lensLabels[currentLens];
-                ctx.fillStyle = '#8a8a9a';
-                ctx.font = '14px Segoe UI, system-ui, sans-serif';
-                var lensText = 'Data Lens: ' + lensInfo.icon + ' ' + lensInfo.name;
-                var ltW = ctx.measureText(lensText).width;
-                ctx.fillText(lensText, w - ltW - 20, titleH / 2 + (advFilterActive ? -12 : 0));
-                if (advFilterActive) {
+                    var filterText = 'Active Filter: ' + metricLabel + ' ' + opSymbol + ' ' + document.getElementById('advThreshold').value;
                     ctx.fillStyle = '#f97316';
                     ctx.font = '600 14px Segoe UI, system-ui, sans-serif';
-                    var filterText2 = 'Filter: ' + document.getElementById('advMetric').selectedOptions[0].text + ' ' + (advOp === 'lte' ? '≤' : '≥') + ' ' + document.getElementById('advThreshold').value;
-                    var ft2W = ctx.measureText(filterText2).width;
-                    ctx.fillText(filterText2, w - ft2W - 20, titleH / 2 + 12);
+                    ctx.fillText(filterText, w - 20, titleH / 2 + 12);
+                } else {
+                    // Just lens info (centered vertically)
+                    ctx.fillStyle = '#8a8a9a';
+                    ctx.font = '14px Segoe UI, system-ui, sans-serif';
+                    ctx.fillText('Data Lens: ' + lensInfo.icon + ' ' + lensInfo.name, w - 20, titleH / 2);
                 }
+
+                // Reset alignment for other elements
+                ctx.textAlign = 'left';
 
                 // -- Optional POI stats table (bottom-left) --
                 if (includePOITable) {
@@ -1805,10 +1807,10 @@
 
                 // -- Watermark logo (bottom-right) --
                 if (watermarkImg.complete && watermarkImg.naturalWidth > 0) {
-                    var logoSize = 100;
+                    var logoSize = 150;
                     var logoX = w - logoSize - 16;
                     var logoY = h - logoSize - 16;
-                    ctx.globalAlpha = 0.7;
+                    ctx.globalAlpha = 0.8;
                     ctx.drawImage(watermarkImg, logoX, logoY, logoSize, logoSize);
                     ctx.globalAlpha = 1.0;
                 }
