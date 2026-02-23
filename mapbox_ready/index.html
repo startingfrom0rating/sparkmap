@@ -32,19 +32,86 @@
             right: 0;
         }
 
+        /* -- Top Header -- */
+        .top-header {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            z-index: 1001;
+        }
+
+        .county-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(15, 15, 26, 0.92);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 6px 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+            letter-spacing: 0.5px;
+            transition: opacity 0.3s ease;
+        }
+
+        .county-label .accent {
+            color: #667eea;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 12px;
+        }
+
+        .stats-bar .stat-pill {
+            background: rgba(15, 15, 26, 0.92);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 20px;
+            text-align: center;
+            min-width: 100px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+        }
+
+        .stat-pill .value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #667eea;
+            font-variant-numeric: tabular-nums;
+            transition: color 0.3s;
+        }
+
+        .stat-pill .value.counting {
+            color: #f97316;
+        }
+
+        .stat-pill .label {
+            font-size: 10px;
+            color: #8a8a9a;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        /* -- Control Panel -- */
         .control-panel {
             position: absolute;
-            top: 20px;
+            top: 110px;
             left: 20px;
             background: rgba(15, 15, 26, 0.95);
             backdrop-filter: blur(20px);
             border-radius: 16px;
             padding: 20px;
-            width: 320px;
+            width: 310px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
-            max-height: calc(100vh - 40px);
+            max-height: calc(100vh - 130px);
             overflow-y: auto;
         }
 
@@ -63,22 +130,23 @@
         }
 
         .control-panel h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 6px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .control-panel .subtitle {
-            font-size: 12px;
+            font-size: 11px;
             color: #8a8a9a;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .section {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .section-title {
@@ -90,8 +158,9 @@
             margin-bottom: 8px;
         }
 
+        /* Search */
         .search-container {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .mapboxgl-ctrl-geocoder {
@@ -111,38 +180,7 @@
             fill: #667eea !important;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .stat-card .value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #667eea;
-            font-variant-numeric: tabular-nums;
-            transition: color 0.3s;
-        }
-
-        .stat-card .value.counting {
-            color: #f97316;
-        }
-
-        .stat-card .label {
-            font-size: 9px;
-            color: #8a8a9a;
-            margin-top: 2px;
-        }
-
+        /* Buttons */
         .lens-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -169,7 +207,7 @@
         }
 
         .lens-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             border-color: transparent;
             color: #fff;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
@@ -232,7 +270,7 @@
         }
 
         .desert-toggle.active .checkbox::after {
-            content: '✓';
+            content: '\2713';
             color: #fff;
             font-size: 11px;
         }
@@ -290,6 +328,7 @@
             color: #fff;
         }
 
+        /* POI */
         .poi-list {
             display: flex;
             flex-direction: column;
@@ -342,12 +381,12 @@
         }
 
         .poi-toggle.active .poi-checkbox::after {
-            content: '✓';
+            content: '\2713';
             color: #fff;
             font-size: 9px;
         }
 
-        /* Legend - Bottom Right */
+        /* -- Legend -- */
         .legend-panel {
             position: absolute;
             bottom: 40px;
@@ -356,7 +395,7 @@
             backdrop-filter: blur(20px);
             border-radius: 12px;
             padding: 14px 18px;
-            min-width: 200px;
+            min-width: 220px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
@@ -371,18 +410,11 @@
             letter-spacing: 1px;
         }
 
-        .legend-bar-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-
         .legend-bar {
-            flex: 1;
             height: 12px;
             border-radius: 6px;
             background: linear-gradient(to right, #ef4444, #f97316, #eab308, #22c55e, #10b981);
+            margin-bottom: 4px;
         }
 
         .legend-values {
@@ -399,6 +431,30 @@
             font-size: 9px;
             color: #6a6a7a;
             margin-top: 2px;
+            margin-bottom: 10px;
+        }
+
+        .legend-special {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 10px;
+        }
+
+        .legend-special-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            color: #b0b0c0;
+        }
+
+        .legend-swatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         /* Popup */
@@ -433,12 +489,19 @@
         }
 
         .popup-badge {
-            background: linear-gradient(135deg, #ef4444, #f97316);
             color: #fff;
             font-size: 8px;
             font-weight: 600;
             padding: 2px 6px;
             border-radius: 8px;
+        }
+
+        .popup-badge.desert {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+        }
+
+        .popup-badge.special {
+            background: linear-gradient(135deg, #7c3aed, #a78bfa);
         }
 
         .popup-metric {
@@ -471,6 +534,10 @@
             color: #10b981;
         }
 
+        .popup-metric .value.special {
+            color: #a78bfa;
+        }
+
         .popup-row {
             display: flex;
             justify-content: space-between;
@@ -492,6 +559,7 @@
             color: #fff;
         }
 
+        /* Loading / Toast */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -553,6 +621,201 @@
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
+
+        /* -- Methodology Modal -- */
+        .method-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .method-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-panel {
+            background: rgba(15, 15, 26, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 28px 32px;
+            width: 620px;
+            max-width: 92vw;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+            animation: modalIn 0.25s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-panel::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 3px;
+        }
+
+        .modal-panel::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.4);
+            border-radius: 3px;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 0;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: #d0d0e0;
+            transition: color 0.2s;
+        }
+
+        .faq-q:hover {
+            color: #667eea;
+        }
+
+        .faq-q .arrow {
+            font-size: 10px;
+            color: #667eea;
+            transition: transform 0.25s;
+        }
+
+        .faq-item.open .faq-q .arrow {
+            transform: rotate(90deg);
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            font-size: 12px;
+            line-height: 1.7;
+            color: #9a9ab0;
+        }
+
+        .faq-item.open .faq-a {
+            max-height: 600px;
+            padding-bottom: 14px;
+        }
+
+        .faq-a strong {
+            color: #b0b0d0;
+        }
+
+        .faq-a a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .faq-a a:hover {
+            text-decoration: underline;
+        }
+
+        .faq-a .source-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+
+        .faq-a .source-tag.atlas {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        .faq-a .source-tag.coi {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+        }
+
+        .faq-a .source-tag.census {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+        }
     </style>
 </head>
 
@@ -565,12 +828,29 @@
     <div id="map"></div>
     <div class="toast" id="toast"></div>
 
-    <!-- Legend Panel - Bottom Right -->
-    <div class="legend-panel">
-        <div class="legend-title" id="legendTitle">💰 Income Mobility</div>
-        <div class="legend-bar-container">
-            <div class="legend-bar"></div>
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="county-label" id="countyLabel"><span class="accent">All</span> Maryland</div>
+        <div class="stats-bar">
+            <div class="stat-pill">
+                <div class="value" id="tractCount">--</div>
+                <div class="label">Tracts</div>
+            </div>
+            <div class="stat-pill">
+                <div class="value" id="desertCount">--</div>
+                <div class="label">Deserts</div>
+            </div>
+            <div class="stat-pill">
+                <div class="value" id="population">--</div>
+                <div class="label">Population</div>
+            </div>
         </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend-panel">
+        <div class="legend-title" id="legendTitle">&#x1F4B0; Income Mobility</div>
+        <div class="legend-bar"></div>
         <div class="legend-values">
             <span id="legendMin">30%</span>
             <span id="legendMid">45%</span>
@@ -580,97 +860,226 @@
             <span>Less Opportunity</span>
             <span>More Opportunity</span>
         </div>
+        <div class="legend-special">
+            <div class="legend-special-item">
+                <div class="legend-swatch" style="background:#7c3aed;"></div>&#x1F4CD; Special Location (No Data)
+            </div>
+            <div class="legend-special-item">
+                <div class="legend-swatch" style="background:#333333;"></div>No Data
+            </div>
+        </div>
     </div>
 
+    <!-- Control Panel -->
     <div class="control-panel">
-        <h1>✨ Spark Map</h1>
+        <h1>&#x2728; Spark Map</h1>
         <p class="subtitle">Maryland Opportunity Intelligence</p>
-
         <div class="search-container" id="geocoder"></div>
 
         <div class="section">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="value" id="tractCount">--</div>
-                    <div class="label">Tracts</div>
-                </div>
-                <div class="stat-card">
-                    <div class="value" id="desertCount">--</div>
-                    <div class="label">Deserts</div>
-                </div>
-                <div class="stat-card">
-                    <div class="value" id="population">--</div>
-                    <div class="label">Population</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">🚨 Advocacy Focus</div>
+            <div class="section-title">&#x1F6A8; Advocacy Focus</div>
             <div class="desert-toggle" id="desertToggle">
-                <div class="icon">🏜️</div>
+                <div class="icon">&#x1F3DC;&#xFE0F;</div>
                 <div class="text">
                     <div class="title">Mobility Deserts</div>
                     <div class="desc">Income mobility &lt; 40%</div>
                 </div>
                 <div class="checkbox"></div>
             </div>
-            <button class="export-btn" id="exportBtn">📥 Export Desert Tracts (CSV)</button>
-            <button class="zoom-btn" id="zoomOutBtn">🔍 Zoom Out to Maryland</button>
+            <button class="export-btn" id="exportBtn">&#x1F4E5; Export Desert Tracts (CSV)</button>
+            <button class="zoom-btn" id="zoomOutBtn">&#x1F50D; Zoom Out to Maryland</button>
         </div>
 
         <div class="section">
-            <div class="section-title">🔬 Data Lens</div>
+            <div class="section-title">&#x1F52C; Data Lens</div>
             <div class="lens-grid">
-                <button class="lens-btn active" data-lens="kfr_pooled_pooled_mean" data-label="💰 Income Mobility"
-                    data-min="30%" data-mid="45%" data-max="60%">💰 Mobility</button>
-                <button class="lens-btn" data-lens="z_COI_nat" data-label="🎯 Opportunity Index" data-min="-1.5"
-                    data-mid="0" data-max="+1.5">🎯 Opportunity</button>
-                <button class="lens-btn" data-lens="z_ED_nat" data-label="📚 Education" data-min="-1.5" data-mid="0"
-                    data-max="+1.5">📚 Education</button>
-                <button class="lens-btn" data-lens="z_HE_nat" data-label="🏥 Health/Env" data-min="-1.5" data-mid="0"
-                    data-max="+1.5">🏥 Health</button>
-                <button class="lens-btn" data-lens="z_SE_nat" data-label="👥 Social/Econ" data-min="-1.5" data-mid="0"
-                    data-max="+1.5">👥 Social</button>
-                <button class="lens-btn" data-lens="jail_pooled_pooled_mean" data-label="⚖️ Incarceration" data-min="0%"
-                    data-mid="2%" data-max="5%">⚖️ Incarceration</button>
+                <button class="lens-btn active" data-lens="kfr_pooled_pooled_mean"
+                    data-label="&#x1F4B0; Income Mobility" data-min="30%" data-mid="45%" data-max="60%">&#x1F4B0;
+                    Mobility</button>
+                <button class="lens-btn" data-lens="z_COI_nat" data-label="&#x1F3AF; Opportunity Index" data-min="-1.5"
+                    data-mid="0" data-max="+1.5">&#x1F3AF; Opportunity</button>
+                <button class="lens-btn" data-lens="z_ED_nat" data-label="&#x1F4DA; Education" data-min="-1.5"
+                    data-mid="0" data-max="+1.5">&#x1F4DA; Education</button>
+                <button class="lens-btn" data-lens="z_HE_nat" data-label="&#x1F3E5; Health/Env" data-min="-1.5"
+                    data-mid="0" data-max="+1.5">&#x1F3E5; Health</button>
+                <button class="lens-btn" data-lens="z_SE_nat" data-label="&#x1F465; Social/Econ" data-min="-1.5"
+                    data-mid="0" data-max="+1.5">&#x1F465; Social</button>
+                <button class="lens-btn" data-lens="jail_pooled_pooled_mean" data-label="&#x2696;&#xFE0F; Incarceration"
+                    data-min="0%" data-mid="2%" data-max="5%">&#x2696;&#xFE0F; Incarceration</button>
             </div>
         </div>
 
         <div class="section">
-            <div class="section-title">🗺️ County Filter</div>
+            <div class="section-title">&#x1F5FA;&#xFE0F; County Filter</div>
             <select class="county-select" id="countyFilter">
                 <option value="">All Maryland</option>
             </select>
         </div>
 
         <div class="section">
-            <div class="section-title">📌 Points of Interest</div>
+            <div class="section-title">&#x1F4CC; Points of Interest</div>
             <div class="poi-list">
                 <div class="poi-toggle" data-layer="hospitals">
-                    <div class="poi-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;">🏥</div>
+                    <div class="poi-icon" style="background:rgba(239,68,68,0.2);color:#ef4444;">&#x1F3E5;</div>
                     <span>Hospitals</span>
                     <div class="poi-checkbox"></div>
                 </div>
                 <div class="poi-toggle" data-layer="schools">
-                    <div class="poi-icon" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">🏫</div>
+                    <div class="poi-icon" style="background:rgba(59,130,246,0.2);color:#3b82f6;">&#x1F3EB;</div>
                     <span>Schools</span>
                     <div class="poi-checkbox"></div>
                 </div>
                 <div class="poi-toggle" data-layer="parks">
-                    <div class="poi-icon" style="background: rgba(34, 197, 94, 0.2); color: #22c55e;">🌳</div>
+                    <div class="poi-icon" style="background:rgba(34,197,94,0.2);color:#22c55e;">&#x1F333;</div>
                     <span>Parks</span>
                     <div class="poi-checkbox"></div>
                 </div>
                 <div class="poi-toggle" data-layer="libraries">
-                    <div class="poi-icon" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">📚</div>
+                    <div class="poi-icon" style="background:rgba(168,85,247,0.2);color:#a855f7;">&#x1F4DA;</div>
                     <span>Libraries</span>
                     <div class="poi-checkbox"></div>
                 </div>
                 <div class="poi-toggle" data-layer="stores">
-                    <div class="poi-icon" style="background: rgba(249, 115, 22, 0.2); color: #f97316;">🛒</div>
+                    <div class="poi-icon" style="background:rgba(249,115,22,0.2);color:#f97316;">&#x1F6D2;</div>
                     <span>Stores</span>
                     <div class="poi-checkbox"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <button class="method-btn" id="methodBtn">&#x2139;&#xFE0F; Methodology &amp; FAQ</button>
+        </div>
+    </div>
+
+    <!-- Methodology Modal -->
+    <div class="modal-overlay" id="methodModal">
+        <div class="modal-panel">
+            <div class="modal-header">
+                <h2>&#x1F4D6; Methodology &amp; FAQ</h2>
+                <button class="modal-close" id="methodClose">&times;</button>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q"><span>Where does the data come from?</span><span class="arrow">&#x25B6;</span></div>
+                <div class="faq-a">
+                    Spark Map synthesizes data from <strong>three primary sources</strong>:<br><br>
+                    <span class="source-tag atlas">Opportunity Atlas</span>
+                    From Harvard/Census Bureau &mdash; provides <strong>income mobility</strong> and
+                    <strong>incarceration rate</strong> estimates at the census-tract level. These measure the average
+                    outcomes of children who grew up in each neighborhood.
+                    <br><a href="https://opportunityinsights.org/paper/the-opportunity-atlas/"
+                        target="_blank">opportunityinsights.org</a><br><br>
+                    <span class="source-tag coi">Child Opportunity Index 3.0</span>
+                    From diversitydatakids.org &mdash; a composite index measuring neighborhood opportunity across
+                    <strong>education</strong>, <strong>health/environment</strong>, and
+                    <strong>social/economic</strong> domains. Provides z-scores comparing each tract to the national
+                    distribution.
+                    <br><a href="https://www.diversitydatakids.org/child-opportunity-index"
+                        target="_blank">diversitydatakids.org</a><br><br>
+                    <span class="source-tag census">Census &amp; ACS</span>
+                    Tract boundaries come from the U.S. Census Bureau&rsquo;s 2020 TIGER/Line shapefiles. Population
+                    estimates are from the American Community Survey (ACS) 5-year estimates.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q"><span>How are the six data lenses calculated?</span><span
+                        class="arrow">&#x25B6;</span></div>
+                <div class="faq-a">
+                    <strong>&#x1F4B0; Income Mobility</strong> &mdash; The mean household income rank (percentile
+                    0&ndash;1) for children who grew up in each tract, pooled across race and gender. Source:
+                    Opportunity Atlas (<em>kfr_pooled_pooled_mean</em>).<br><br>
+                    <strong>&#x1F3AF; Opportunity Index</strong> &mdash; The overall Child Opportunity Index z-score
+                    (<em>z_COI_nat</em>), which combines 30+ indicators into a single national-normed score. Positive =
+                    above average, negative = below.<br><br>
+                    <strong>&#x1F4DA; Education</strong> &mdash; COI education domain z-score (<em>z_ED_nat</em>).
+                    Includes early childhood education centers, third-grade reading/math proficiency, high school
+                    graduation rates, AP course enrollment, and school poverty rates.<br><br>
+                    <strong>&#x1F3E5; Health/Environment</strong> &mdash; COI health &amp; environment domain z-score
+                    (<em>z_HE_nat</em>). Includes health insurance coverage, toxic exposure risk, air quality, access to
+                    healthy food, and green space.<br><br>
+                    <strong>&#x1F465; Social/Economic</strong> &mdash; COI social &amp; economic domain z-score
+                    (<em>z_SE_nat</em>). Includes poverty rate, public assistance, employment, median household income,
+                    and housing vacancy.<br><br>
+                    <strong>&#x2696;&#xFE0F; Incarceration</strong> &mdash; The mean incarceration rate for children who
+                    grew up in each tract. Source: Opportunity Atlas (<em>jail_pooled_pooled_mean</em>). Higher = worse
+                    outcomes.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q"><span>What is a &ldquo;Mobility Desert&rdquo;?</span><span
+                        class="arrow">&#x25B6;</span></div>
+                <div class="faq-a">
+                    A <strong>Mobility Desert</strong> is a census tract where children&rsquo;s average income mobility
+                    is below <strong>40th percentile</strong> (the 0.40 threshold on the Income Mobility lens). These
+                    are neighborhoods where, historically, children growing up there earned significantly less as adults
+                    compared to the national average. The threshold was chosen to identify the bottom tier of economic
+                    opportunity for advocacy purposes.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q"><span>How were census tract boundaries matched?</span><span
+                        class="arrow">&#x25B6;</span></div>
+                <div class="faq-a">
+                    The Opportunity Atlas uses <strong>2010 census tract</strong> geographies, while the COI 3.0 and our
+                    basemap use <strong>2020 census tracts</strong>. We applied the official Census Bureau
+                    <strong>2010-to-2020 crosswalk</strong> to map the Atlas data onto 2020 boundaries. When a 2010
+                    tract was split into multiple 2020 tracts, the same value is assigned to each child tract. When
+                    multiple 2010 tracts merged, we use a population-weighted average. This achieves approximately
+                    <strong>98% data coverage</strong> across Maryland&rsquo;s ~1,400 tracts.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q"><span>What about the color scale?</span><span class="arrow">&#x25B6;</span></div>
+                <div class="faq-a">
+                    The gradient runs from <strong style="color:#ef4444;">red</strong> (worst outcomes) through <strong
+                        style="color:#eab308;">yellow</strong> (middle) to <strong style="color:#10b981;">green</strong>
+                    (best outcomes). For z-score lenses, the scale spans &minus;1.5 to +1.5 standard deviations. For
+                    percentage lenses (Mobility, Incarceration), stops are set at meaningful policy thresholds. The
+                    incarceration lens reverses the colors since higher values represent worse outcomes.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q"><span>Why are some tracts colored purple?</span><span class="arrow">&#x25B6;</span>
+                </div>
+                <div class="faq-a">
+                    <strong style="color:#7c3aed;">Purple tracts</strong> are designated <strong>Special
+                        Locations</strong> &mdash; areas like airports, correctional facilities, or institutional
+                    campuses that lack meaningful residential census data. Since few or no people live in these tracts
+                    permanently, income mobility and opportunity scores are not applicable. We color them distinctly to
+                    avoid misinterpreting the absence of data as poor outcomes.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q"><span>What are the Points of Interest (POIs)?</span><span
+                        class="arrow">&#x25B6;</span></div>
+                <div class="faq-a">
+                    POI layers (Hospitals, Schools, Parks, Libraries, Stores) are sourced from
+                    <strong>OpenStreetMap</strong> exports filtered to Maryland. They are overlaid on top of the census
+                    tract data to show the relationship between community resources and opportunity scores. When you
+                    filter by county, POIs are automatically scoped to that county.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q"><span>How should I use this for advocacy?</span><span class="arrow">&#x25B6;</span>
+                </div>
+                <div class="faq-a">
+                    <strong>1.</strong> Use the <strong>Mobility Desert</strong> toggle to identify the most
+                    under-resourced tracts in your county.<br>
+                    <strong>2.</strong> Export the desert tracts as CSV for grant applications and policy briefs.<br>
+                    <strong>3.</strong> Switch between lenses to understand <em>why</em> a tract is struggling &mdash;
+                    is it education, health, or social/economic disadvantage?<br>
+                    <strong>4.</strong> Toggle POIs to see if the area lacks schools, libraries, or healthcare
+                    access.<br>
+                    <strong>5.</strong> Click on any tract for a detailed popup with the exact score and GEOID for
+                    citing in reports.
                 </div>
             </div>
         </div>
@@ -678,16 +1087,29 @@
 
     <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoiYmVja2diIiwiYSI6ImNtazF5bWh0aTBhemozZm15eWtvd3B2cGYifQ.IQDpONfnqF-70DP6QKMd2A';
-        const DESERT_THRESHOLD = 0.40;
+        var DESERT_THRESHOLD = 0.40;
 
-        const map = new mapboxgl.Map({
+        // Special tracts: non-residential areas without meaningful census data
+        var SPECIAL_COLOR = '#7c3aed';
+        var specialTracts = {
+            '24005980200': 'BWI Airport Area',
+            '24005980100': 'BWI Airport Area',
+            '24043011000': 'Special Location',
+            '24003980000': 'BWI Airport',
+            '24003740400': 'Correctional Facility',
+            '24005490605': 'Sheppard Pratt / Towson',
+            '24510100300': 'Special Location'
+        };
+        var specialGeoIds = Object.keys(specialTracts);
+
+        var map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/dark-v11',
             center: [-76.6, 39.0],
             zoom: 7.5
         });
 
-        const geocoder = new MapboxGeocoder({
+        var geocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
             mapboxgl: mapboxgl,
             placeholder: 'Search address in Maryland...',
@@ -696,14 +1118,12 @@
         });
         document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
-        let currentLens = 'kfr_pooled_pooled_mean';
-        let showDeserts = false;
-        let tractData = null;
-        let currentCounty = '';
-        let countyBounds = {};
+        var currentLens = 'kfr_pooled_pooled_mean';
+        var showDeserts = false;
+        var tractData = null;
+        var currentCounty = '';
 
-        // County population estimates (2023)
-        const countyPopulations = {
+        var countyPopulations = {
             '': 6200000,
             'Allegany County, Maryland': 68000,
             'Anne Arundel County, Maryland': 588000,
@@ -721,9 +1141,9 @@
             'Howard County, Maryland': 332000,
             'Kent County, Maryland': 19000,
             'Montgomery County, Maryland': 1062000,
-            'Prince George\'s County, Maryland': 967000,
-            'Queen Anne\'s County, Maryland': 51000,
-            'St. Mary\'s County, Maryland': 114000,
+            "Prince George's County, Maryland": 967000,
+            "Queen Anne's County, Maryland": 51000,
+            "St. Mary's County, Maryland": 114000,
             'Somerset County, Maryland': 25000,
             'Talbot County, Maryland': 38000,
             'Washington County, Maryland': 154000,
@@ -731,7 +1151,7 @@
             'Worcester County, Maryland': 52000
         };
 
-        const colorScales = {
+        var colorScales = {
             'kfr_pooled_pooled_mean': { stops: [0.3, 0.4, 0.45, 0.5, 0.6], colors: ['#ef4444', '#f97316', '#eab308', '#22c55e', '#10b981'] },
             'z_COI_nat': { stops: [-1.5, -0.5, 0, 0.5, 1.5], colors: ['#ef4444', '#f97316', '#eab308', '#22c55e', '#10b981'] },
             'z_ED_nat': { stops: [-1.5, -0.5, 0, 0.5, 1.5], colors: ['#ef4444', '#f97316', '#eab308', '#22c55e', '#10b981'] },
@@ -740,16 +1160,16 @@
             'jail_pooled_pooled_mean': { stops: [0, 0.01, 0.02, 0.03, 0.05], colors: ['#10b981', '#22c55e', '#eab308', '#f97316', '#ef4444'] }
         };
 
-        const lensLabels = {
-            'kfr_pooled_pooled_mean': { name: 'Income Mobility', icon: '💰', format: 'percent' },
-            'z_COI_nat': { name: 'Opportunity Index', icon: '🎯', format: 'zscore' },
-            'z_ED_nat': { name: 'Education', icon: '📚', format: 'zscore' },
-            'z_HE_nat': { name: 'Health/Environment', icon: '🏥', format: 'zscore' },
-            'z_SE_nat': { name: 'Social/Economic', icon: '👥', format: 'zscore' },
-            'jail_pooled_pooled_mean': { name: 'Incarceration Rate', icon: '⚖️', format: 'percent' }
+        var lensLabels = {
+            'kfr_pooled_pooled_mean': { name: 'Income Mobility', icon: '\uD83D\uDCB0', format: 'percent' },
+            'z_COI_nat': { name: 'Opportunity Index', icon: '\uD83C\uDFAF', format: 'zscore' },
+            'z_ED_nat': { name: 'Education', icon: '\uD83D\uDCDA', format: 'zscore' },
+            'z_HE_nat': { name: 'Health/Environment', icon: '\uD83C\uDFE5', format: 'zscore' },
+            'z_SE_nat': { name: 'Social/Economic', icon: '\uD83D\uDC65', format: 'zscore' },
+            'jail_pooled_pooled_mean': { name: 'Incarceration Rate', icon: '\u2696\uFE0F', format: 'percent' }
         };
 
-        const poiConfigs = {
+        var poiConfigs = {
             hospitals: { color: '#ef4444' },
             schools: { color: '#3b82f6' },
             parks: { color: '#22c55e' },
@@ -757,22 +1177,23 @@
             stores: { color: '#f97316' }
         };
 
-        // Animated counter
-        function animateValue(element, start, end, duration = 800) {
+        /* -- Helpers -- */
+        function animateValue(element, start, end, duration) {
+            duration = duration || 800;
             element.classList.add('counting');
-            const startTime = performance.now();
-            const update = (currentTime) => {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easeOut = 1 - Math.pow(1 - progress, 3);
-                const current = Math.round(start + (end - start) * easeOut);
+            var startTime = performance.now();
+            function update(currentTime) {
+                var elapsed = currentTime - startTime;
+                var progress = Math.min(elapsed / duration, 1);
+                var easeOut = 1 - Math.pow(1 - progress, 3);
+                var current = Math.round(start + (end - start) * easeOut);
                 element.textContent = formatNumber(current);
                 if (progress < 1) {
                     requestAnimationFrame(update);
                 } else {
                     element.classList.remove('counting');
                 }
-            };
+            }
             requestAnimationFrame(update);
         }
 
@@ -791,35 +1212,40 @@
         }
 
         function showToast(message) {
-            const toast = document.getElementById('toast');
+            var toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            setTimeout(function () { toast.classList.remove('show'); }, 3000);
         }
 
-        function updateStats(county = '') {
+        function updateCountyLabel(county) {
+            var el = document.getElementById('countyLabel');
+            if (county) {
+                var short = county.replace(', Maryland', '');
+                el.innerHTML = '<span class="accent">' + short + '</span> County';
+            } else {
+                el.innerHTML = '<span class="accent">All</span> Maryland';
+            }
+        }
+
+        function updateStats(county) {
+            county = county || '';
             if (!tractData) return;
-
-            const features = county
-                ? tractData.features.filter(f => f.properties.county_name === county)
+            var features = county
+                ? tractData.features.filter(function (f) { return f.properties.county_name === county; })
                 : tractData.features;
-
-            let desertCount = 0;
-            features.forEach(f => {
-                const m = parseFloat(f.properties.kfr_pooled_pooled_mean);
+            var desertCount = 0;
+            features.forEach(function (f) {
+                var m = parseFloat(f.properties.kfr_pooled_pooled_mean);
                 if (!isNaN(m) && m < DESERT_THRESHOLD) desertCount++;
             });
-
-            const tractEl = document.getElementById('tractCount');
-            const desertEl = document.getElementById('desertCount');
-            const popEl = document.getElementById('population');
-
-            const oldTracts = parseDisplayNumber(tractEl.textContent);
-            const oldDeserts = parseDisplayNumber(desertEl.textContent);
-            const oldPop = parseDisplayNumber(popEl.textContent);
-
-            const newPop = countyPopulations[county] || 6200000;
-
+            var tractEl = document.getElementById('tractCount');
+            var desertEl = document.getElementById('desertCount');
+            var popEl = document.getElementById('population');
+            var oldTracts = parseDisplayNumber(tractEl.textContent);
+            var oldDeserts = parseDisplayNumber(desertEl.textContent);
+            var oldPop = parseDisplayNumber(popEl.textContent);
+            var newPop = countyPopulations[county] || 6200000;
             animateValue(tractEl, oldTracts, features.length);
             animateValue(desertEl, oldDeserts, desertCount);
             animateValue(popEl, oldPop, newPop);
@@ -833,30 +1259,55 @@
         }
 
         function filterPOIs(county) {
-            Object.keys(poiConfigs).forEach(layerId => {
-                const filter = county ? ['==', ['get', 'county_name'], county] : null;
-                ['fill', 'outline', 'layer'].forEach(suffix => {
-                    if (map.getLayer(`${layerId}-${suffix}`)) {
-                        map.setFilter(`${layerId}-${suffix}`, filter);
+            Object.keys(poiConfigs).forEach(function (layerId) {
+                var filter = county ? ['==', ['get', 'county_name'], county] : null;
+                ['fill', 'outline', 'layer'].forEach(function (suffix) {
+                    if (map.getLayer(layerId + '-' + suffix)) {
+                        map.setFilter(layerId + '-' + suffix, filter);
                     }
                 });
             });
         }
 
-        map.on('load', async () => {
+        function buildColorExpression(metric) {
+            var scale = colorScales[metric];
+            var expr = ['case'];
+            // Special tracts get a unique purple color
+            for (var i = 0; i < specialGeoIds.length; i++) {
+                expr.push(['==', ['get', 'GEOID'], specialGeoIds[i]]);
+                expr.push(SPECIAL_COLOR);
+            }
+            // Missing data
+            expr.push(['==', ['get', metric], null]);
+            expr.push('#333333');
+            // Normal gradient
+            expr.push(
+                ['interpolate', ['linear'], ['to-number', ['get', metric], 0],
+                    scale.stops[0], scale.colors[0],
+                    scale.stops[1], scale.colors[1],
+                    scale.stops[2], scale.colors[2],
+                    scale.stops[3], scale.colors[3],
+                    scale.stops[4], scale.colors[4]
+                ]
+            );
+            return expr;
+        }
+
+        /* -- Map Load -- */
+        map.on('load', async function () {
             document.getElementById('loading').classList.add('hidden');
 
             try {
-                tractData = await fetch('maryland_tracts_with_scores.geojson').then(r => r.json());
+                tractData = await fetch('maryland_tracts_with_scores.geojson').then(function (r) { return r.json(); });
 
-                const counties = new Set();
-                tractData.features.forEach(f => {
+                var counties = new Set();
+                tractData.features.forEach(function (f) {
                     if (f.properties.county_name) counties.add(f.properties.county_name);
                 });
 
-                const countySelect = document.getElementById('countyFilter');
-                Array.from(counties).sort().forEach(county => {
-                    const opt = document.createElement('option');
+                var countySelect = document.getElementById('countyFilter');
+                Array.from(counties).sort().forEach(function (county) {
+                    var opt = document.createElement('option');
                     opt.value = county;
                     opt.textContent = county.replace(', Maryland', '');
                     countySelect.appendChild(opt);
@@ -885,90 +1336,108 @@
                     id: 'tracts-outline',
                     type: 'line',
                     source: 'tracts',
-                    paint: {
-                        'line-color': '#ffffff', 'line-width': 0.3, 'line-opacity': 0.3
-                    }
+                    paint: { 'line-color': '#ffffff', 'line-width': 0.3, 'line-opacity': 0.3 }
                 });
 
-                map.on('click', 'tracts-fill', (e) => {
-                    const props = e.features[0].properties;
-                    const lensInfo = lensLabels[currentLens];
-                    const value = parseFloat(props[currentLens]);
-                    const mobility = parseFloat(props.kfr_pooled_pooled_mean);
-                    const isDesert = !isNaN(mobility) && mobility < DESERT_THRESHOLD;
+                map.on('click', 'tracts-fill', function (e) {
+                    var props = e.features[0].properties;
+                    var geoid = props.GEOID;
+                    var specialLabel = specialTracts[geoid];
+                    var lensInfo = lensLabels[currentLens];
+                    var value = parseFloat(props[currentLens]);
+                    var mobility = parseFloat(props.kfr_pooled_pooled_mean);
+                    var isDesert = !isNaN(mobility) && mobility < DESERT_THRESHOLD;
 
-                    let valueClass = 'mid';
-                    if (currentLens === 'kfr_pooled_pooled_mean' || currentLens === 'jail_pooled_pooled_mean') {
-                        valueClass = value < 0.4 ? 'low' : value > 0.5 ? 'high' : 'mid';
-                        if (currentLens === 'jail_pooled_pooled_mean') valueClass = value > 0.03 ? 'low' : value < 0.01 ? 'high' : 'mid';
-                    } else {
-                        valueClass = value < -0.5 ? 'low' : value > 0.5 ? 'high' : 'mid';
+                    // Special tract popup
+                    if (specialLabel) {
+                        new mapboxgl.Popup()
+                            .setLngLat(e.lngLat)
+                            .setHTML(
+                                '<div class="popup-header">' +
+                                '<div class="popup-title">Tract ' + (props.NAME || geoid) + '</div>' +
+                                '<div class="popup-badge special">\uD83D\uDCCD SPECIAL</div>' +
+                                '</div>' +
+                                '<div class="popup-metric">' +
+                                '<div class="label">\uD83D\uDCCD ' + specialLabel + '</div>' +
+                                '<div class="value special">No Census Data</div>' +
+                                '</div>' +
+                                '<div class="popup-row"><span class="popup-label">Reason</span><span class="popup-value">Non-residential area</span></div>' +
+                                '<div class="popup-row"><span class="popup-label">County</span><span class="popup-value">' + (props.county_name || 'N/A').replace(', Maryland', '') + '</span></div>' +
+                                '<div class="popup-row"><span class="popup-label">GEOID</span><span class="popup-value">' + geoid + '</span></div>'
+                            )
+                            .addTo(map);
+                        return;
                     }
 
-                    const formattedValue = lensInfo.format === 'percent'
+                    // Normal tract popup
+                    var valueClass = 'mid';
+                    if (currentLens === 'kfr_pooled_pooled_mean' || currentLens === 'jail_pooled_pooled_mean') {
+                        valueClass = value < 0.4 ? 'low' : (value > 0.5 ? 'high' : 'mid');
+                        if (currentLens === 'jail_pooled_pooled_mean') valueClass = value > 0.03 ? 'low' : (value < 0.01 ? 'high' : 'mid');
+                    } else {
+                        valueClass = value < -0.5 ? 'low' : (value > 0.5 ? 'high' : 'mid');
+                    }
+
+                    var formattedValue = lensInfo.format === 'percent'
                         ? (value * 100).toFixed(1) + '%'
                         : (value >= 0 ? '+' : '') + value.toFixed(2);
 
                     new mapboxgl.Popup()
                         .setLngLat(e.lngLat)
-                        .setHTML(`
-                            <div class="popup-header">
-                                <div class="popup-title">Tract ${props.NAME || props.GEOID}</div>
-                                ${isDesert ? '<div class="popup-badge">🏜️ DESERT</div>' : ''}
-                            </div>
-                            <div class="popup-metric">
-                                <div class="label">${lensInfo.icon} ${lensInfo.name}</div>
-                                <div class="value ${valueClass}">${isNaN(value) ? 'N/A' : formattedValue}</div>
-                            </div>
-                            <div class="popup-row"><span class="popup-label">County</span><span class="popup-value">${(props.county_name || 'N/A').replace(', Maryland', '')}</span></div>
-                            <div class="popup-row"><span class="popup-label">GEOID</span><span class="popup-value">${props.GEOID}</span></div>
-                        `)
+                        .setHTML(
+                            '<div class="popup-header">' +
+                            '<div class="popup-title">Tract ' + (props.NAME || props.GEOID) + '</div>' +
+                            (isDesert ? '<div class="popup-badge desert">\uD83C\uDFDC\uFE0F DESERT</div>' : '') +
+                            '</div>' +
+                            '<div class="popup-metric">' +
+                            '<div class="label">' + lensInfo.icon + ' ' + lensInfo.name + '</div>' +
+                            '<div class="value ' + valueClass + '">' + (isNaN(value) ? 'N/A' : formattedValue) + '</div>' +
+                            '</div>' +
+                            '<div class="popup-row"><span class="popup-label">County</span><span class="popup-value">' + (props.county_name || 'N/A').replace(', Maryland', '') + '</span></div>' +
+                            '<div class="popup-row"><span class="popup-label">GEOID</span><span class="popup-value">' + props.GEOID + '</span></div>'
+                        )
                         .addTo(map);
                 });
 
-                map.on('mouseenter', 'tracts-fill', () => map.getCanvas().style.cursor = 'pointer');
-                map.on('mouseleave', 'tracts-fill', () => map.getCanvas().style.cursor = '');
+                map.on('mouseenter', 'tracts-fill', function () { map.getCanvas().style.cursor = 'pointer'; });
+                map.on('mouseleave', 'tracts-fill', function () { map.getCanvas().style.cursor = ''; });
 
             } catch (err) { console.error('Error loading tracts:', err); }
 
             // Load POI layers
-            for (const [layerId, config] of Object.entries(poiConfigs)) {
+            var poiEntries = Object.entries(poiConfigs);
+            for (var idx = 0; idx < poiEntries.length; idx++) {
+                var layerId = poiEntries[idx][0];
+                var config = poiEntries[idx][1];
                 try {
-                    const data = await fetch(`${layerId}.geojson`).then(r => r.json());
-                    map.addSource(layerId, { type: 'geojson', data });
-                    const isPolygon = ['Polygon', 'MultiPolygon'].includes(data.features[0]?.geometry?.type);
-
+                    var data = await fetch(layerId + '.geojson').then(function (r) { return r.json(); });
+                    map.addSource(layerId, { type: 'geojson', data: data });
+                    var firstType = data.features[0] && data.features[0].geometry && data.features[0].geometry.type;
+                    var isPolygon = (firstType === 'Polygon' || firstType === 'MultiPolygon');
                     if (isPolygon) {
-                        map.addLayer({ id: `${layerId}-fill`, type: 'fill', source: layerId, paint: { 'fill-color': config.color, 'fill-opacity': 0.4 }, layout: { visibility: 'none' } });
-                        map.addLayer({ id: `${layerId}-outline`, type: 'line', source: layerId, paint: { 'line-color': config.color, 'line-width': 2 }, layout: { visibility: 'none' } });
+                        map.addLayer({ id: layerId + '-fill', type: 'fill', source: layerId, paint: { 'fill-color': config.color, 'fill-opacity': 0.4 }, layout: { visibility: 'none' } });
+                        map.addLayer({ id: layerId + '-outline', type: 'line', source: layerId, paint: { 'line-color': config.color, 'line-width': 2 }, layout: { visibility: 'none' } });
                     } else {
-                        map.addLayer({ id: `${layerId}-layer`, type: 'circle', source: layerId, paint: { 'circle-radius': 6, 'circle-color': config.color, 'circle-stroke-width': 2, 'circle-stroke-color': '#fff' }, layout: { visibility: 'none' } });
+                        map.addLayer({ id: layerId + '-layer', type: 'circle', source: layerId, paint: { 'circle-radius': 6, 'circle-color': config.color, 'circle-stroke-width': 2, 'circle-stroke-color': '#fff' }, layout: { visibility: 'none' } });
                     }
-                } catch (err) { console.warn(`Could not load ${layerId}:`, err); }
+                } catch (err) { console.warn('Could not load ' + layerId + ':', err); }
             }
         });
 
-        function buildColorExpression(metric) {
-            const scale = colorScales[metric];
-            return ['case', ['==', ['get', metric], null], '#333333',
-                ['interpolate', ['linear'], ['to-number', ['get', metric], 0],
-                    scale.stops[0], scale.colors[0], scale.stops[1], scale.colors[1],
-                    scale.stops[2], scale.colors[2], scale.stops[3], scale.colors[3],
-                    scale.stops[4], scale.colors[4]]];
-        }
-
-        // Lens switching
-        document.querySelectorAll('.lens-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.lens-btn').forEach(b => b.classList.remove('active'));
+        /* -- Lens Switching -- */
+        document.querySelectorAll('.lens-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.lens-btn').forEach(function (b) { b.classList.remove('active'); });
                 btn.classList.add('active');
                 currentLens = btn.dataset.lens;
-                if (map.getLayer('tracts-fill')) map.setPaintProperty('tracts-fill', 'fill-color', buildColorExpression(currentLens));
+                if (map.getLayer('tracts-fill')) {
+                    map.setPaintProperty('tracts-fill', 'fill-color', buildColorExpression(currentLens));
+                }
                 updateLegend(btn);
             });
         });
 
-        // Desert toggle
+        /* -- Desert Toggle -- */
         document.getElementById('desertToggle').addEventListener('click', function () {
             this.classList.toggle('active');
             showDeserts = this.classList.contains('active');
@@ -976,47 +1445,45 @@
                 map.setPaintProperty('tracts-desert-highlight', 'line-opacity', showDeserts ? 1 : 0);
             }
             if (map.getLayer('tracts-fill')) {
-                map.setPaintProperty('tracts-fill', 'fill-opacity', showDeserts ?
-                    ['case', ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD], 0.9, 0.3] : 0.75);
+                map.setPaintProperty('tracts-fill', 'fill-opacity', showDeserts
+                    ? ['case', ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD], 0.9, 0.3]
+                    : 0.75);
             }
         });
 
-        // Export button
-        document.getElementById('exportBtn').addEventListener('click', () => {
+        /* -- Export -- */
+        document.getElementById('exportBtn').addEventListener('click', function () {
             if (!tractData) return;
-
-            let features = tractData.features;
+            var features = tractData.features;
             if (currentCounty) {
-                features = features.filter(f => f.properties.county_name === currentCounty);
+                features = features.filter(function (f) { return f.properties.county_name === currentCounty; });
             }
-
-            const deserts = features.filter(f => {
-                const m = parseFloat(f.properties.kfr_pooled_pooled_mean);
+            var deserts = features.filter(function (f) {
+                var m = parseFloat(f.properties.kfr_pooled_pooled_mean);
                 return !isNaN(m) && m < DESERT_THRESHOLD;
             });
-
-            const csv = [
-                ['GEOID', 'Tract Name', 'County', 'Income Mobility', 'Opportunity Index', 'Education', 'Health', 'Social'].join(','),
-                ...deserts.map(f => {
-                    const p = f.properties;
-                    return [p.GEOID, p.NAME, (p.county_name || '').replace(', Maryland', ''),
-                    p.kfr_pooled_pooled_mean, p.z_COI_nat, p.z_ED_nat, p.z_HE_nat, p.z_SE_nat].join(',');
-                })
-            ].join('\n');
-
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
+            var csv = [
+                ['GEOID', 'Tract Name', 'County', 'Income Mobility', 'Opportunity Index', 'Education', 'Health', 'Social'].join(',')
+            ];
+            deserts.forEach(function (f) {
+                var p = f.properties;
+                csv.push([p.GEOID, p.NAME, (p.county_name || '').replace(', Maryland', ''),
+                p.kfr_pooled_pooled_mean, p.z_COI_nat, p.z_ED_nat, p.z_HE_nat, p.z_SE_nat].join(','));
+            });
+            var blob = new Blob([csv.join('\n')], { type: 'text/csv' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
             a.href = url;
-            a.download = currentCounty ? `${currentCounty.replace(', Maryland', '').replace(/\s/g, '_')}_mobility_deserts.csv` : 'maryland_mobility_deserts.csv';
+            a.download = currentCounty
+                ? currentCounty.replace(', Maryland', '').replace(/\s/g, '_') + '_mobility_deserts.csv'
+                : 'maryland_mobility_deserts.csv';
             a.click();
             URL.revokeObjectURL(url);
-
-            showToast(`✅ Exported ${deserts.length} mobility desert tracts`);
+            showToast('Exported ' + deserts.length + ' mobility desert tracts');
         });
 
-        // Zoom out button
-        document.getElementById('zoomOutBtn').addEventListener('click', () => {
+        /* -- Zoom Out -- */
+        document.getElementById('zoomOutBtn').addEventListener('click', function () {
             document.getElementById('countyFilter').value = '';
             currentCounty = '';
             map.setFilter('tracts-fill', null);
@@ -1026,23 +1493,26 @@
             map.flyTo({ center: [-76.6, 39.0], zoom: 7.5 });
             document.getElementById('zoomOutBtn').classList.remove('visible');
             updateStats('');
+            updateCountyLabel('');
         });
 
-        // County filter
+        /* -- County Filter -- */
         document.getElementById('countyFilter').addEventListener('change', function () {
             currentCounty = this.value;
-
+            updateCountyLabel(currentCounty);
             if (currentCounty) {
                 map.setFilter('tracts-fill', ['==', ['get', 'county_name'], currentCounty]);
                 map.setFilter('tracts-outline', ['==', ['get', 'county_name'], currentCounty]);
-                map.setFilter('tracts-desert-highlight', ['all', ['==', ['get', 'county_name'], currentCounty], ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD]]);
-
-                const countyFeatures = tractData.features.filter(f => f.properties.county_name === currentCounty);
+                map.setFilter('tracts-desert-highlight', ['all',
+                    ['==', ['get', 'county_name'], currentCounty],
+                    ['<', ['to-number', ['get', 'kfr_pooled_pooled_mean'], 1], DESERT_THRESHOLD]
+                ]);
+                var countyFeatures = tractData.features.filter(function (f) { return f.properties.county_name === currentCounty; });
                 if (countyFeatures.length) {
-                    const bounds = new mapboxgl.LngLatBounds();
-                    countyFeatures.forEach(f => {
-                        const coords = f.geometry.coordinates.flat(10);
-                        for (let i = 0; i < coords.length - 1; i += 2) {
+                    var bounds = new mapboxgl.LngLatBounds();
+                    countyFeatures.forEach(function (f) {
+                        var coords = f.geometry.coordinates.flat(10);
+                        for (var i = 0; i < coords.length - 1; i += 2) {
                             if (typeof coords[i] === 'number' && typeof coords[i + 1] === 'number' &&
                                 Math.abs(coords[i]) <= 180 && Math.abs(coords[i + 1]) <= 90) {
                                 bounds.extend([coords[i], coords[i + 1]]);
@@ -1050,9 +1520,7 @@
                         }
                     });
                     map.fitBounds(bounds, { padding: 50 });
-                    countyBounds[currentCounty] = bounds;
                 }
-
                 document.getElementById('zoomOutBtn').classList.add('visible');
                 filterPOIs(currentCounty);
             } else {
@@ -1063,23 +1531,44 @@
                 document.getElementById('zoomOutBtn').classList.remove('visible');
                 filterPOIs('');
             }
-
             updateStats(currentCounty);
         });
 
-        // POI toggles
-        document.querySelectorAll('.poi-toggle').forEach(toggle => {
-            toggle.addEventListener('click', () => {
+        /* -- POI Toggles -- */
+        document.querySelectorAll('.poi-toggle').forEach(function (toggle) {
+            toggle.addEventListener('click', function () {
                 toggle.classList.toggle('active');
-                const id = toggle.dataset.layer;
-                const vis = toggle.classList.contains('active') ? 'visible' : 'none';
-                ['fill', 'outline', 'layer'].forEach(s => {
-                    if (map.getLayer(`${id}-${s}`)) map.setLayoutProperty(`${id}-${s}`, 'visibility', vis);
+                var id = toggle.dataset.layer;
+                var vis = toggle.classList.contains('active') ? 'visible' : 'none';
+                ['fill', 'outline', 'layer'].forEach(function (s) {
+                    if (map.getLayer(id + '-' + s)) {
+                        map.setLayoutProperty(id + '-' + s, 'visibility', vis);
+                    }
                 });
             });
         });
 
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+
+        /* -- Methodology Modal -- */
+        document.getElementById('methodBtn').addEventListener('click', function () {
+            document.getElementById('methodModal').classList.add('visible');
+        });
+        document.getElementById('methodClose').addEventListener('click', function () {
+            document.getElementById('methodModal').classList.remove('visible');
+        });
+        document.getElementById('methodModal').addEventListener('click', function (e) {
+            if (e.target === this) this.classList.remove('visible');
+        });
+        document.querySelectorAll('.faq-q').forEach(function (q) {
+            q.addEventListener('click', function () {
+                var item = this.parentElement;
+                var wasOpen = item.classList.contains('open');
+                // Close all others
+                document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
     </script>
 </body>
 
