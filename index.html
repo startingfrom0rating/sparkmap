@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spark Map - Maryland's Premier Geographic Advocacy Platform</title>
+    <title>Spark Map</title>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet" />
     <script
@@ -984,12 +984,14 @@
 
     <!-- Control Panel -->
     <div class="control-panel">
-        <h1>🧩 Spark Map</h1>
-        <p class="subtitle">Maryland Opportunity Intelligence</p>
+        <h1 class="brand">
+            <img src="logo.png" alt="Spark Map logo">Spark Map
+        </h1>
+        <p class="subtitle">Maryland's Premier Geographic Advocacy Platform</p>
         <div class="search-container" id="geocoder"></div>
 
         <div class="section">
-            <div class="section-title">&#x1F6A8; Advocacy Focus</div>
+            <div class="section-title">Advocacy Focus</div>
             <div class="adv-filter">
                 <select class="adv-select" id="advMetric">
                     <option value="kfr_pooled_pooled_mean">&#x1F4B0; Income Mobility</option>
@@ -1006,22 +1008,22 @@
                     </div>
                     <input class="adv-input" id="advThreshold" type="text" value="40%" placeholder="threshold">
                 </div>
-                <button class="adv-apply" id="advApply">&#x1F3DC;&#xFE0F; Apply Filter</button>
+                <button class="adv-apply" id="advApply">Apply Filter</button>
                 <div class="adv-hint" id="advHint">Choose a metric, operator, and threshold</div>
             </div>
             <button class="zoom-btn" id="zoomOutBtn">&#x1F50D; Zoom Out to Maryland</button>
         </div>
 
         <div class="section">
-            <div class="section-title">&#x1F4F8; Export</div>
+            <div class="section-title">Export</div>
             <div class="export-section">
                 <div class="export-toggle active" id="poiTableToggle">
                     <div class="export-check"></div>
                     <span>Include POI stats table</span>
                 </div>
-                <button class="export-screenshot-btn" id="exportScreenshotBtn">&#x1F4F7; Export Infographic
+                <button class="export-screenshot-btn" id="exportScreenshotBtn">Export Infographic
                     (PNG)</button>
-                <button class="export-btn" id="exportBtn">&#x1F4E5; Export Data (CSV)</button>
+                <button class="export-btn" id="exportBtn">Export Data (CSV)</button>
             </div>
         </div>
 
@@ -1091,7 +1093,7 @@
     <div class="modal-overlay" id="methodModal">
         <div class="modal-panel">
             <div class="modal-header">
-                <h2>&#x1F4D6; Methodology &amp; FAQ</h2>
+                <h2>Methodology &amp; FAQ</h2>
                 <button class="modal-close" id="methodClose">&times;</button>
             </div>
 
@@ -1272,7 +1274,7 @@
             'Allegany County, Maryland': 68000,
             'Anne Arundel County, Maryland': 588000,
             'Baltimore County, Maryland': 854000,
-            'Baltimore city, Maryland': 576000,
+            'Baltimore City, Maryland': 576000,
             'Calvert County, Maryland': 93000,
             'Caroline County, Maryland': 34000,
             'Carroll County, Maryland': 173000,
@@ -1636,7 +1638,7 @@
                 }
             } else {
                 btn.classList.remove('active');
-                btn.innerHTML = '&#x1F3DC;&#xFE0F; Apply Filter';
+                btn.innerHTML = 'Apply Filter';
                 hint.textContent = 'Choose a metric, operator, and threshold';
                 hint.classList.remove('active-hint');
 
@@ -1733,7 +1735,7 @@
                 ctx.font = 'bold 22px Segoe UI, system-ui, sans-serif';
                 ctx.textBaseline = 'middle';
                 ctx.textAlign = 'left';
-                var titleText = '🧩 Spark Map — ' + (currentCounty ? currentCounty.replace(', Maryland', '') : 'All Maryland');
+                var titleText = 'Spark Map — ' + (currentCounty ? currentCounty.replace(', Maryland', '') : 'Maryland');
                 ctx.fillText(titleText, 20, titleH / 2);
 
                 // Info on right of title bar
